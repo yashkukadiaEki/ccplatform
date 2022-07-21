@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<head>
+<link rel="stylesheet" href="{% static 'website/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+    mark{  background-color: lightgrey;
+  color: black;}
+    pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+
+}
+</style>
+</head>
+
+
+  <!-- ***** Breadcrumb Area Start ***** -->
+  <!-- change this image -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'website/img/bg-img/backimg.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <h2 class="title">Data Science Use Cases</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+<body>
+
+
+<div class="container" style="padding-bottom: 15%">
+    <br>
+    <h4>Client Path to Loyalty</h4>
+    <p>Understanding how your client moves through your business and the behaviours and purchases that are distinguished between client paths to identify the virtuous path to loyalty and potential opportunities along it.</p>
+    <img src="{% static 'website/img/core-img/loyalty.png' %}"alt="">
+
+    <br><br>
+
+    <h4>Omni-Channel Interactions</h4>
+    <p>Linking digital interactions, pre-sale actions and behaviours with online and offline sales to determine the main digital paths and to provide a holistic view of your customer journey and enhance your communication strategy across channels</p>
+    <img src="{% static 'website/img/core-img/omnichannel.png' %}"alt="">
+
+    <br><br>
+
+    <h4>End to end Journey clustering</h4>
+    <p>Capitalize on the richness of the omni-channel journey in order to identify the path with the highest value, and to identify opportunities for personalization to reduce churn. This requires an in-depth analysis of the customer journey and clustering across comparable journeys to identify the next best action at each significant touchpoint</p>
+    <img src="{% static 'website/img/core-img/endtoend.png' %}"alt="">
+
+
+    <br><br>
+
+    <h4>Personalization through Scoring</h4>
+    <p>Develop a customer scoring algorithm to measure the propensity of your clients to visit the store, churn, acquire a certain product, cross-sell, become VIP… The learnings from the scoring are then fed through into your communication strategy in order to boost the specified KPI</p>
+    <img src="{% static 'website/img/core-img/personlization.png' %}"alt="">
+
+
+    <br><br>
+
+    <h4>Advanced performance measurement</h4>
+    <p>Conducting a sophisticated measurement program to accurately analyze the performance of different CRM actions whilst creating valuable deep-dives in order to adapt your customer centric strategy</p>
+    <img src="{% static 'website/img/core-img/adv_performance.png' %}"alt="">
+
+
+    <br><br>
+
+    <h4>Personalization through Scoring</h4>
+    <p>Develop a customer scoring algorithm to measure the propensity of your clients to visit the store, churn, acquire a certain product, cross-sell, become VIP… The learnings from the scoring are then fed through into your communication strategy in order to boost the specified KPI</p>
+    <img src="{% static 'website/img/core-img/personlization.png' %}"alt="">
+
+
+    <br><br>
+
+    <h4>Network Clustering Solution</h4>
+    <p>Define key typologies of your network, according to the characteristics and behaviors of their customers. These typologies will be the basis with which to build a more personalized in-store experience through the sales ceremony and boutique assortment. It will enable the setting up of objectives, performance monitoring at a boutique and sales associate level.</p>
+    <img src="{% static 'website/img/core-img/clustering.png' %}"alt="">
+
+
+    <br><br>
+
+    <h4>Brand image perception</h4>
+    <p>Build a brand image index which incorporates multiple dimensions, whilst accurately measuring the impact of the specified dimensions.
+The approach is adapted to answer your business questions and data availability. Results will be treated to produce operational insights on brand image.</p>
+    <img src="{% static 'website/img/core-img/brandimage.png' %}"alt="">
+
+
+</div>
+
+</body>
+{% endblock %}

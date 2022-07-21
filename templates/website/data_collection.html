@@ -1,0 +1,382 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<head>
+<link rel="stylesheet" href="{% static 'website/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+    mark{  background-color: lightgrey;
+  color: black;}
+    pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+
+}
+</style>
+</head>
+
+
+  <!-- ***** Breadcrumb Area Start ***** -->
+  <!-- change this image -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'website/img/bg-img/backimg.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <h2 class="title">Customer Data Collection</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<body>
+  <div class="container">
+
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#aws">Amazon Web Services (AWS)</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#gcp">Google Cloud Platform (GCP)</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#azure">Azure Cloud</a>
+    </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+    <div class="tab-pane container active" id="aws">
+        <br>
+        <h3 style="color: #f69f12">CSV/Excel:</h3>
+        <ol>
+         <li>(Assume in Databricks environment)</li>
+         <li ><h5 style="color: #3f03ff">Steps:</h5></li>
+         <li>1. Upload the file at DBFS first </li>
+         <li>2. Open the notebook and put the command to connect to the source data</li>
+         <li>For csv:  spark.read.format(“csv”).load(path=None, format=None, schema=None, **options)</li>
+         <li>For excel:  spark.read.format(“excel”).load(path=None, format=None, schema=None, **options)</li>
+
+        </ol>
+
+        <br>
+        <h3 style="color: #f69f12">Salesforce:</h3>
+        <ol>
+         <li>Salesforce Bulk API</li>
+         <li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Introduction to Bulk API</a></li>
+         <li ><h5 style="color: #3f03ff">Steps:</h5></li>
+         <li>1. Get the following credential information: </li>
+            <li><mark>username</mark> <mark>password</mark> <mark>security_token</mark> <mark>domain</mark></li>
+         <li>2.Import the related library:</li>
+            <li><mark>from salesforce_bulk import SalesforceBulk</mark></li>
+        <li>3.Use the following line to do authentication:</li>
+            <pre>
+                <code>
+                    bulk = SalesforceBulk(username=salesforce_username, password=salesforce_password,security_token=salesforce_security_token, API_version = 51.0)
+                </code>
+            </pre>
+        <li>4.Use the following code to query the data and store as Json:</li>
+            <pre>
+                <code>
+                    job = bulk.create_query_job(salesforce_table_name, contentType='JSON')
+                        batch = bulk.query(job, f"select {query_table} from {salesforce_table_name}")
+                        bulk.close_job(job)
+                        while not bulk.is_batch_done(batch):
+                            sleep(10)
+
+                        for res in bulk.get_all_results_for_query_batch(batch):
+                            data_json = json.load(IteratorBytesIO(res))
+
+                        for x in data_json :
+                            x.pop('attributes')
+                </code>
+            </pre>
+            <li>Architecture</li>
+            <img src="{% static 'website/img/core-img/architecture.png' %}"alt="">
+
+        </ol>
+    </div>
+    <div class="tab-pane container fade" id="gcp">
+                <br>
+        <h3 style="color: #f69f12">CSV/Excel:</h3>
+        <ol>
+         <li>(Assume in Databricks environment)</li>
+         <li ><h5 style="color: #3f03ff">Steps:</h5></li>
+         <li>1. Upload the file at DBFS first </li>
+         <li>2. Open the notebook and put the command to connect to the source data</li>
+         <li>For csv:  spark.read.format(“csv”).load(path=None, format=None, schema=None, **options)</li>
+         <li>For excel:  spark.read.format(“excel”).load(path=None, format=None, schema=None, **options)</li>
+
+        </ol>
+
+        <br>
+        <h3 style="color: #f69f12">Salesforce:</h3>
+        <ol>
+         <li>Salesforce Bulk API</li>
+         <li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Introduction to Bulk API</a></li>
+         <li ><h5 style="color: #3f03ff">Steps:</h5></li>
+         <li>1. Get the following credential information: </li>
+            <li><mark>username</mark> <mark>password</mark> <mark>security_token</mark> <mark>domain</mark></li>
+         <li>2.Import the related library:</li>
+            <li><mark>from salesforce_bulk import SalesforceBulk</mark></li>
+        <li>3.Use the following line to do authentication:</li>
+            <pre>
+                <code>
+                    bulk = SalesforceBulk(username=salesforce_username, password=salesforce_password,security_token=salesforce_security_token, API_version = 51.0)
+                </code>
+            </pre>
+        <li>4.Use the following code to query the data and store as Json:</li>
+            <pre>
+                <code>
+                    job = bulk.create_query_job(salesforce_table_name, contentType='JSON')
+                        batch = bulk.query(job, f"select {query_table} from {salesforce_table_name}")
+                        bulk.close_job(job)
+                        while not bulk.is_batch_done(batch):
+                            sleep(10)
+
+                        for res in bulk.get_all_results_for_query_batch(batch):
+                            data_json = json.load(IteratorBytesIO(res))
+
+                        for x in data_json :
+                            x.pop('attributes')
+                </code>
+            </pre>
+            <li>Architecture</li>
+            <img src="{% static 'website/img/core-img/architecture.png' %}"alt="">
+
+        </ol>
+    </div>
+    <div class="tab-pane container fade" id="azure">
+                <br>
+        <h3 style="color: #f69f12">CSV/Excel:</h3>
+        <ol>
+         <li>(Assume in Databricks environment)</li>
+         <li ><h5 style="color: #3f03ff">Steps:</h5></li>
+         <li>1. Upload the file at DBFS first </li>
+         <li>2. Open the notebook and put the command to connect to the source data</li>
+         <li>For csv:  spark.read.format(“csv”).load(path=None, format=None, schema=None, **options)</li>
+         <li>For excel:  spark.read.format(“excel”).load(path=None, format=None, schema=None, **options)</li>
+
+        </ol>
+
+        <br>
+        <h3 style="color: #f69f12">Salesforce:</h3>
+        <ol>
+         <li>Salesforce Bulk API</li>
+         <li><a href="https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_intro.htm">Introduction to Bulk API</a></li>
+         <li ><h5 style="color: #3f03ff">Steps:</h5></li>
+         <li>1. Get the following credential information: </li>
+            <li><mark>username</mark> <mark>password</mark> <mark>security_token</mark> <mark>domain</mark></li>
+         <li>2.Import the related library:</li>
+            <li><mark>from salesforce_bulk import SalesforceBulk</mark></li>
+        <li>3.Use the following line to do authentication:</li>
+            <pre>
+                <code>
+                    bulk = SalesforceBulk(username=salesforce_username, password=salesforce_password,security_token=salesforce_security_token, API_version = 51.0)
+                </code>
+            </pre>
+        <li>4.Use the following code to query the data and store as Json:</li>
+            <pre>
+                <code>
+                    job = bulk.create_query_job(salesforce_table_name, contentType='JSON')
+                        batch = bulk.query(job, f"select {query_table} from {salesforce_table_name}")
+                        bulk.close_job(job)
+                        while not bulk.is_batch_done(batch):
+                            sleep(10)
+
+                        for res in bulk.get_all_results_for_query_batch(batch):
+                            data_json = json.load(IteratorBytesIO(res))
+
+                        for x in data_json :
+                            x.pop('attributes')
+                </code>
+            </pre>
+            <li>Architecture</li>
+            <img src="{% static 'website/img/core-img/architecture.png' %}"alt="">
+
+        </ol>
+    </div>
+
+
+
+  </div>
+
+
+<!-- Uncomment to implement components for GCP, Azure and AWS -->
+{% comment %}<nav class="classy-navbar justify-content-between" id="dentoNav">
+    <div class="classy-menu">
+        <div class="classynav">
+            <ul id="nav">
+
+          <li><a href="{% url 'gcp' %}" class=>Google Cloud Platform (GCP)</a></li>
+          <li><a href="{% url 'azure' %}">Azure</a></li>
+          <li><a href="{% url 'aws' %}">Amazon Web Services</a></li>
+        </ul>
+        </div>
+    </div>
+</nav>{% endcomment %}
+</body>
+
+{% comment %}      <!-- Nav tabs -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link active" data-toggle="tab" href="#home">Amazon Web Services (AWS)</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu1">Azure</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" data-toggle="tab" href="#menu2">Google Cloud Platform (GCP)</a>
+    </li>
+  </ul>{% endcomment %}
+
+
+  <!-- ***** Breadcrumb Area End ***** -->
+
+  <!-- ***** Dento Pricing Table Area Start ***** -->
+{% comment %}  <section class="dento-pricing-table-area mt-50 section-padding-0-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="dento-price-table table-responsive">
+            <table class="table table-borderless mb-0">
+              <thead>
+                <tr>
+                  <th scope="col">Service Names</th>
+                  <th scope="col">Stage</th>
+                  <th scope="col">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Teeth Whitening Service at home</th>
+                  <td>1 times</td>
+                  <td>$115.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Teeth Whitening Service at Dental Clinic</th>
+                  <td>1 times</td>
+                  <td>$100.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Ceramic crowns and fillings Dental porcelain</th>
+                  <td>1 times</td>
+                  <td>$99.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Remove crowns, bridges Service</th>
+                  <td>1 tooth</td>
+                  <td>$50.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Covering the recession of the gums</th>
+                  <td>1 times</td>
+                  <td>$400.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Consultation, impressions and preparation of models</th>
+                  <td>1 times</td>
+                  <td>$35.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Removal of an old inlay, old crown</th>
+                  <td>1 times</td>
+                  <td>$99.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Overlay teeth whitening ( 2 arches)</th>
+                  <td>1 times</td>
+                  <td>$170.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Standard porcelain and zirconium crown on implant</th>
+                  <td>1 tooth</td>
+                  <td>$499.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Implantation of an implant (price depends on system used)</th>
+                  <td>1 tooth</td>
+                  <td>$600.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Covering the recession of the gums</th>
+                  <td>1 times</td>
+                  <td>$400.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Consultation, impressions and preparation of models</th>
+                  <td>1 times</td>
+                  <td>$35.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Removal of an old inlay, old crown</th>
+                  <td>1 times</td>
+                  <td>$99.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Overlay teeth whitening ( 2 arches)</th>
+                  <td>1 times</td>
+                  <td>$170.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Standard porcelain and zirconium crown on implant</th>
+                  <td>1 tooth</td>
+                  <td>$499.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Implantation of an implant (price depends on system used)</th>
+                  <td>1 tooth</td>
+                  <td>$600.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Covering the recession of the gums</th>
+                  <td>1 times</td>
+                  <td>$400.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Consultation, impressions and preparation of models</th>
+                  <td>1 times</td>
+                  <td>$35.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Removal of an old inlay, old crown</th>
+                  <td>1 times</td>
+                  <td>$99.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Overlay teeth whitening ( 2 arches)</th>
+                  <td>1 times</td>
+                  <td>$170.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Standard porcelain and zirconium crown on implant</th>
+                  <td>1 tooth</td>
+                  <td>$499.00</td>
+                </tr>
+                <tr>
+                  <th scope="row">Implantation of an implant (price depends on system used)</th>
+                  <td>1 tooth</td>
+                  <td>$600.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="more-btn text-center mt-50">
+            <a href="#" class="btn dento-btn">Read More <i class="fa fa-angle-double-right"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- ***** Dento Pricing Table Area End ***** -->{% endcomment %}
+{% endblock %}

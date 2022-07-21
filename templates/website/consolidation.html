@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<head>
+<link rel="stylesheet" href="{% static 'website/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+    mark{  background-color: lightgrey;
+  color: black;}
+    pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+
+}
+</style>
+</head>
+
+
+  <!-- ***** Breadcrumb Area Start ***** -->
+  <!-- change this image -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'website/img/bg-img/backimg.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <h2 class="title">Profile Consolidation/Unification</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+<body>
+
+
+<div class="container" style="padding-bottom: 15%; padding-top: 30px">
+<ul>
+    <li>1.Data assessment including data validation and referential construction</li>
+    <li>2.Exploratory analysis to define and calculate key business indicators and track their evolution to draw the profile of your clientele</li>
+    <li>3.Conduct specific focuses according to your business challenges</li>
+    <li>4.Key learnings and identification of common features of the customer</li>
+
+</ul>
+</div>
+</body>
+{% endblock %}

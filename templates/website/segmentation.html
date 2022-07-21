@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block content %}
+<head>
+<link rel="stylesheet" href="{% static 'website/style.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style>
+    mark{  background-color: lightgrey;
+  color: black;}
+    pre code {
+  background-color: #eee;
+  border: 1px solid #999;
+  display: block;
+
+}
+</style>
+</head>
+
+
+  <!-- ***** Breadcrumb Area Start ***** -->
+  <!-- change this image -->
+  <div class="breadcumb-area bg-img bg-gradient-overlay" style="background-image: url({% static 'website/img/bg-img/backimg.jpg' %});">
+    <div class="container h-100">
+      <div class="row h-100 align-items-center">
+        <div class="col-12">
+          <h2 class="title">Customer Segmentation</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+<body>
+<div class="container" style="padding-bottom: 15%">
+    <br>
+    <h4>Client Profiling Solution</h4>
+    <p>Having deep understanding of your clients/prospects and their purchase behavior will be critical to setting up the foundation of your contact strategies and will allow for the development of personalized customer journeys, by identifying new trends and key moments throughout the lifecycle.</p>
+    <img src="{% static 'website/img/core-img/profiling_img.png' %}"alt="">
+
+
+    <br><br>
+
+    <h4>Advanced Segmentation</h4>
+    <p>Linking digital interactions, pre-sale actions and behaviours with online and offline sales to determine the main digital paths and to provide a holistic view of your customer journey and enhance your communication strategy across channels</p>
+    <img src="{% static 'website/img/core-img/omnichannel.png' %}"alt="">
+</div>
+
+
+</body>
+{% endblock %}
